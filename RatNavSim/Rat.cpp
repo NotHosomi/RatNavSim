@@ -1,6 +1,7 @@
 #include "Rat.h"
 
 
+#define DEG2RAD(x) x * M_PI / 180 
 
 Rat::Rat(int nWhiskerCount)
 {
@@ -11,6 +12,7 @@ Rat::Rat(int nWhiskerCount)
 		m_vWhiskersLeft.emplace_back(Vector2<float>(40, 20 + 5 * i), -90 - 2*i, 100.0f - 5*i);
 		m_vWhiskersRight.emplace_back(Vector2<float>(-40, 20 + 5 * i), 90 - 2*i, 100.0f - 5*i);
 	}
+	SetPos({ 0,0 });
 }
 
 void Rat::Update()
@@ -33,6 +35,7 @@ void Rat::Render()
 
 void Rat::Move(Vector2<float> tDelta, float fTheta)
 {
+	tDelta.Rotate(DEG2RAD(m_fAngle));
 	SetPos(m_tPos + tDelta);
 	SetAngle(m_fAngle + fTheta);
 }

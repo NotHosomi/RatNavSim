@@ -2,6 +2,7 @@
 #include <ASGF/Camera.h>
 #include <ASGF/Window.h>
 #include <ASGF/Input.h>
+#include <ASGF/Frames.h>
 #include "Environment.h"
 
 Sim::Sim() :
@@ -48,10 +49,38 @@ void Sim::Update()
 {
 	Camera::GetMainCamera()->Update();
 
-	if (Input::Instance()->GetKeyDown(E_Keys::R))
+	Vector2<float> wishDir = { 0,0 };
+	float wishR = 0;
+	if (Input::Instance()->GetKey(E_Keys::R))
 	{
-		m_Rat.Move({ 0,0 }, 1);
+		if (Input::Instance()->GetShift())
+		{
+			wishR = 1;
+		}
+		else
+		{
+			wishR = -1;
+		}
 	}
+	if (Input::Instance()->GetKey(E_Keys::Up))
+	{
+		++wishDir.y;
+	}
+	if (Input::Instance()->GetKey(E_Keys::Down))
+	{
+		--wishDir.y;
+	}
+	if (Input::Instance()->GetKey(E_Keys::Right))
+	{
+		++wishDir.x;
+	}
+	if (Input::Instance()->GetKey(E_Keys::Left))
+	{
+		--wishDir.x;
+	}
+	wishDir = wishDir * 100 * Frames::DeltaTime();
+	wishR *= 100 * Frames::DeltaTime();
+	m_Rat.Move(wishDir, wishR);
 }
 
 void Sim::Render()
