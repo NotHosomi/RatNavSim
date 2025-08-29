@@ -12,8 +12,8 @@ Whisker::Whisker(Vector2<float> tOffset, float fAngle, float fLength)
 void Whisker::OnHeadMove(Vector2<float> tHeadPos, float fHeadAngle)
 {
 	// update positions
-	Vector2<float> rootPos = tHeadPos + m_tRootOffset.Rotation(fHeadAngle);
-	Vector2<float> tipPos = rootPos + m_tTipOffset.Rotation(fHeadAngle);
+	Vector2<float> rootPos = tHeadPos + m_tRootOffset.Rotation(DEG2RAD(fHeadAngle));
+	Vector2<float> tipPos = rootPos + m_tTipOffset.Rotation(DEG2RAD(fHeadAngle));
 	m_vfx.SetStart(rootPos.cast<int>());
 	m_vfx.SetEnd(tipPos.cast<int>());
 

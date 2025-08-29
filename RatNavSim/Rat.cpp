@@ -38,6 +38,15 @@ void Rat::Move(Vector2<float> tDelta, float fTheta)
 	tDelta.Rotate(DEG2RAD(m_fAngle));
 	SetPos(m_tPos + tDelta);
 	SetAngle(m_fAngle + fTheta);
+
+	for (auto& w : m_vWhiskersLeft)
+	{
+		w.OnHeadMove(m_tPos, m_fAngle);
+	}
+	for (auto& w : m_vWhiskersRight)
+	{
+		w.OnHeadMove(m_tPos, m_fAngle);
+	}
 }
 
 void Rat::SetPos(Vector2<float> tPos)
